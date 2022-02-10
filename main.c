@@ -12,7 +12,7 @@ int file_size(char file_name[30])
  fseek(fp, perv, SEEK_SET); // seek back to last location of pointer.
  return size;
 }
-void check_arguments(int argc,char file_name[20])
+void check_arguments(int argc,void *argv[])
 {
   // if argument's smaller than 3 print guid to use and exit 
   if(argc < 3)
@@ -20,16 +20,16 @@ void check_arguments(int argc,char file_name[20])
     printf("USE [FILE_NAME] [OUT_FILE_NAME] [PASSWORD] ! THE PASSWORD TO BE A NUMBER \n");
     exit(1);
   }
-  if(access(file_name , R_OK))
+  if(access(argv[1] , R_OK))
   {
-   printf("can't access to file %s .\n" , file_name);
+   printf("%s: %s: No such file or directory\n" , argv[0] , argv[1]);
    exit(1);
   }
 }
 
 int main(int argc , char *argv[])
 {
-  check_arguments(argc , argv[1]);
+  check_arguments(argc , argv);
   // define var's for handel ...
   char *data; // for save data
   int byte_of_file = file_size(argv[1]); // get file sizeS

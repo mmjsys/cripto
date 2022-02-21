@@ -1,6 +1,6 @@
 # cripto 
 ## Installtion : 
-### ``` sudo gcc main.c -o /bin/cripto ```
+### ``` sudo make install ```
 ---
 ## Usage :
 ### ``` cripto FileName Outfilename secretnmber```

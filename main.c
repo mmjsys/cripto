@@ -3,15 +3,15 @@
 #include <unistd.h>
 
 // function to cmpute file size
-int file_size(char *file[])
+int file_size(char *file[] , int *size)
 {
  FILE *fp; // make pointer.
  fp = fopen( *file, "r"); // open file in read mode.
  int perv = ftell(fp); // get pointer location.
  fseek(fp, 0, SEEK_END); // seek to end of file.
- int size = ftell(fp); // get current file pointer.
- fseek(fp, perv, SEEK_SET); // seek back to last location of pointer.
- return size;
+ *size = ftell(fp); // get current file pointer.
+ fseek(fp, perv, SEEK_SET); // seek back to last location of pointer. 
+ return 0;
 }
 void check_arguments(int argc,void *argv[])
 {
@@ -32,9 +32,10 @@ int main(int argc , char *argv[])
 {
   check_arguments(argc , argv);
   // define var's for handel ...
+  int size;
   char *data; // for save data
-  int byte_of_file = file_size(&argv[1]); // get file sizeS
-  data = (char*)malloc(byte_of_file * sizeof(char)); // malloc memory for data
+  file_size(&argv[1], &size); // get file sizeS
+  data = (char*)malloc(size * sizeof(char)); // malloc memory for data
   FILE *fptr; // define file pointer 
   fptr = fopen(argv[1] , "rb"); // open file for read binery  
   int i = 0 ; // index for remember data index
